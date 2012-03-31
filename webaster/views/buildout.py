@@ -3,6 +3,7 @@ import zipfile
 import deform
 import urllib2
 import tempfile
+from StringIO import StringIO
 from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
@@ -105,9 +106,24 @@ def zip(context, request):
     filename = '%s/%s' % (temp,'buildout.zip')
     with zipfile.ZipFile(filename, 'w') as buildout:
         for bfile in context.keys():
-            buildout.writestr(bfile, context[bfile].data)
+            buildout.writestr(bfile.encode('utf-8'), context[bfile].data.encode('utf-8'))
 
-    response = Response(filename)
+    response = Response()
+    zipped_file = open(filename, 'r')
+    response.body_file = zipped_file
     response.content_type = 'application/zip'
-    response.content_disposition = "filename=buildout.zip"
+    response.content_disposition = "attachment; filename=buildout.zip"
+    return response
+
+@view_config(context='..models.Buildout', name='zip2')
+def zip2(context, request):
+    out = StringIO()
+    with zipfile.ZipFile(out, 'w') as buildout:
+        for bfile in context.keys():
+            buildout.writestr(bfile.encode('utf-8'), context[bfile].data.encode('utf-8'))
+
+    out.seek(0)
+    response = Response(out.getvalue())
+    response.content_type = 'application/zip'
+    response.content_disposition = "attachment; filename=buildout.zip"
     return response
