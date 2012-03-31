@@ -1,0 +1,12 @@
+[buildout]
+buildoutname = ${buildoutname}
+extends =
+    ${
+    versions.cfg
+find-links += http://peggs.cc.jyu.fi/jyu
+eggs += jyu.policy.${buildoutname}
+versions = versions
+
+[instance]
+http-address = ${httpaddress}
+user = admin:admin

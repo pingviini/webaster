@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="base.macros['base']">
+
+    <tal:block metal:fill-slot="content">
+      <div class="container">
+        <h1>Buildout</h1>
+        <h2 tal:content="context.name" />
+        <strong tal:content="context.base" />
+        <p class="discreet" tal:content="context.description" />
+
+        <h2>Files</h2>
+        <ul tal:repeat="file files">
+          <li><a href="${request.url}/${file}" tal:content="file" /></li>
+        </ul>
+
+        <div class="btn-group">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            Add...
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- dropdown menu links -->
+            <li><a href="${request.url}/@@add-file">File</a></li>
+            <li><a href="${request.url}/@@add-folder">Folder</a></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            Download...
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- dropdown menu links -->
+            <li><a href="${request.url}/@@zip">zip</a></li>
+            <li><a href="${request.url}/@@tar.bz2">tar.bz2</a></li>
+          </ul>
+        </div>
+      </div>
+    </tal:block>
+</html>

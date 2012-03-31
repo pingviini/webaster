@@ -1,0 +1,21 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="${request.application_url}" tal:content="project">Project name</a>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li><a href="${request.application_url}">Home</a></li>
+          <li><a href="${request.application_url}/buildouts">Buildouts</a></li>
+          <li><a href="${request.application_url}/base_buildouts">Base buildouts</a></li>
+          <li class="divider-vertical"></li>
+          <li><a class="" href="${request.url}/@@add"><i class="icon-plus icon-white"></i> Add</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
